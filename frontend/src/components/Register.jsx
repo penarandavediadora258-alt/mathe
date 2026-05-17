@@ -8,12 +8,34 @@ const Register = ({ onSwitchToLogin }) => {
   const { register, loading } = useAuth();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await register(email, password, role);
-    if (!result.success) {
-      alert(result.message);
+  e.preventDefault();
+  setLoading(true);
+
+  // 1. Activa el estado "Cargando..."
+
+  try {
+    // 2. Ejecuta la petición al servidor
+    const result = await registre(email, password, role);
+
+    // 3. Corregido: Se elimina el ";" y se evalúa si falló el registro
+    if (!result || !result.message) {
+      alert("Error al registrar");
+      setLoading(false); // Apaga el cargando si hay un error controlado
+      return;
     }
-  };
+
+    // Si el código llega aquí, el registro fue exitoso
+    alert("¡Registro exitoso!");
+
+  } catch (error) {
+    // 4. Captura errores de red (por ejemplo, si el servidor en Render está caído)
+    console.error(error);
+    alert("Error al registrar");
+  } finally {
+    // 5. Esto se ejecuta SIEMPRE al final y libera el botón verde
+    setLoading(false);
+  }
+};
 
   return (
     <div style={{ maxWidth: '300px', margin: '50px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
