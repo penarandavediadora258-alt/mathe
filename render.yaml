@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: mathe-backend
+    env: node
+    branch: main
+    root: backend
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+
+  - type: web
+    name: mathe-frontend
+    env: docker
+    branch: main
+    root: frontend
+    plan: starter
+    dockerfilePath: Dockerfile
+    autoDeploy: true

@@ -1,0 +1,8 @@
+# Ignore local environment files
+backend/.env
+
+# Ignore node_modules if ever added at root level
+node_modules/
+
+# Ignore frontend local backup metadata
+frontend/.git.bak/
