@@ -3,7 +3,7 @@ services:
     name: mathe-backend
     env: node
     branch: main
-    root: backend
+    rootDir: backend
     plan: starter
     buildCommand: npm install
     startCommand: npm start
@@ -13,7 +13,7 @@ services:
     name: mathe-frontend
     env: docker
     branch: main
-    root: frontend
+    rootDir: frontend
     plan: starter
     dockerfilePath: Dockerfile
     autoDeploy: true
