@@ -20,6 +20,7 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB conectado"))
   .catch(err => console.log(err));
 
+
 // Rutas
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/rides", require("./routes/rides"));
@@ -27,4 +28,4 @@ app.use("/api/rides", require("./routes/rides"));
 // SOCKET.IO
 require("./sockets/socket")(io);
 
-server.listen(5000, () => console.log("Servidor en puerto 5000"));
+server.listen(process.env.PORT || 5000, () => console.log("Servidor en puerto 5000"));
