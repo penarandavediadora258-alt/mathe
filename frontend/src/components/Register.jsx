@@ -9,31 +9,20 @@ const Register = ({ onSwitchToLogin }) => {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
-  setLoading(true);
-
-  // 1. Activa el estado "Cargando..."
 
   try {
-    // 2. Ejecuta la petición al servidor
     const result = await registre(email, password, role);
 
-    // 3. Corregido: Se elimina el ";" y se evalúa si falló el registro
     if (!result || !result.message) {
       alert("Error al registrar");
-      setLoading(false); // Apaga el cargando si hay un error controlado
       return;
     }
 
-    // Si el código llega aquí, el registro fue exitoso
     alert("¡Registro exitoso!");
 
   } catch (error) {
-    // 4. Captura errores de red (por ejemplo, si el servidor en Render está caído)
     console.error(error);
     alert("Error al registrar");
-  } finally {
-    // 5. Esto se ejecuta SIEMPRE al final y libera el botón verde
-    setLoading(false);
   }
 };
 

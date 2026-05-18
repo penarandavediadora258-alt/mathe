@@ -118,11 +118,36 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (email, password, role = 'rider') => {
-    setLoading(true);
-    try {
-      const response = await api.post('/auth/register', { email, password, role });
-      const { user: userData, accessToken, refreshToken } = response.data;
+  const registre = async (email, password, role) => {
+  setLoading(true);
+
+  try {
+
+    const response = await fetch('https://mathe-n5rd.onrender.com/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password, role }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+
+      return null;
+    }
+
+    return data;
+
+  } catch (error) {
+
+    console.error("Error en la conexión con el servidor:", error);
+    return null;
+
+  } finally {
+    setLoading(false);
+  }
+};
 
       // Guardar tokens y datos de usuario
       localStorage.setItem('accessToken', accessToken);
@@ -139,7 +164,6 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
 
   const logout = async () => {
     try {
@@ -147,6 +171,7 @@ export const AuthProvider = ({ children }) => {
       if (refreshToken) {
         await api.post('/auth/logout', { refreshToken });
       }
+      return { success: true };
     } catch (error) {
       console.error('Error during logout:', error);
     } finally {
@@ -187,4 +212,3 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
