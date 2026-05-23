@@ -14,7 +14,7 @@ const PaymentComponent = ({ rideId, amount, onPaymentSuccess, onPaymentError }) 
   const handleCardChange = (e) => {
     let value = e.target.value.replace(/\s/g, '');
     if (value.length > 16) value = value.slice(0, 16);
-    
+
     // Agregar espacios cada 4 dígitos
     value = value.replace(/(\d{4})/g, '$1 ').trim();
     setCardNumber(value);
